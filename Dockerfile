@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:edge
 LABEL maintainer="ReSech"
 
 ENV XDG_CONFIG_HOME="/config" \
