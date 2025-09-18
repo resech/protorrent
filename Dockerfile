@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:latest
 LABEL maintainer="Julio Gutierrez protorrent.limeade106@passmail.net"
 
 ENV XDG_CONFIG_HOME="/config" \
@@ -21,8 +21,10 @@ RUN \
   tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
+  echo "*** perform updates ***" && \
+  apk upgrade && \
   echo "*** install packages ***" && \
-  apk add --no-cache patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
+  apk add patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
   echo "*** patch wg-quick ***" && \
   patch --verbose -d / -p 0 -i /tmp/wg-quick.patch && \
   echo "**** create abc user and make our folders ****" && \
@@ -30,7 +32,8 @@ RUN \
   useradd -u 1000 -g 1000 -d /config -s /bin/false abc && \
   mkdir -p /config /downloads && \
   echo "*** cleanup ***" && \
-  apk del --no-network --no-cache patch && \
+  apk del patch && \
+  rm -rf /var/cache/apk/* && \
   rm -rf /tmp/*
 
 EXPOSE 8080
