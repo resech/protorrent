@@ -60,3 +60,9 @@ jobs:
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
       
+      # This step deletes all but the 3 most recent packages
+      - uses: actions/delete-package-versions@v5
+        with:
+          package-name: 'protorrent'
+          package-type: 'container'
+          min-versions-to-keep: 3
