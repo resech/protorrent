@@ -13,6 +13,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLA
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-x86_64.tar.xz /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-arch.tar.xz /tmp
+ADD https://github.com/VueTorrent/VueTorrent/releases/latest/download/vuetorrent.zip /tmp
 COPY root /
 
 RUN \
@@ -21,6 +22,8 @@ RUN \
   tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
+  echo "*** install VueTorrent ***" && \
+  unzip /tmp/vuetorrent.zip -d / && \
   echo "*** perform updates ***" && \
   apk upgrade && \
   echo "*** install packages ***" && \
