@@ -1,5 +1,5 @@
 FROM alpine:latest
-LABEL maintainer="Julio Gutierrez protorrent.limeade106@passmail.net"
+LABEL maintainer="ReSech"
 
 ENV XDG_CONFIG_HOME="/config" \
   XDG_DATA_HOME="/config" \
