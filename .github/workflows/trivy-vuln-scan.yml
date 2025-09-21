@@ -22,6 +22,10 @@ jobs:
           ignore-unfixed: true
           severity: "CRITICAL,HIGH,MEDIUM"
           output: 'trivy-results.sarif'
+          scan-type: "image"
+          scanners: "vuln,secret"
+          version: "latest"
+          vuln-type: "os,library"
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
