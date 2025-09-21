@@ -17,7 +17,7 @@ jobs:
     - name: Generate tarball from image
       run: |
         docker pull ghcr.io/resech/protorrent:main
-        docker save -o vuln-image.tar ghcr.io/resech/protorrent:main
+        docker save -o /github/workspace/vuln-image.tar ghcr.io/resech/protorrent:main
 
     - name: Run Trivy vulnerability scanner in tarball mode
       uses: aquasecurity/trivy-action@0.28.0
