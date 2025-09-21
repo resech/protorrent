@@ -6,29 +6,24 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * 1"
+
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-24.04
+  trivy_scan:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Generate tarball from image
-      run: |
-        docker pull ghcr.io/resech/protorrent:main
-        docker save -o /github/workspace/vuln-image.tar ghcr.io/resech/protorrent:main
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: "ghcr.io/resech/protorrent:main"
+          format: 'sarif'
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH,MEDIUM"
+          output: 'trivy-results.sarif'
 
-    - name: Run Trivy vulnerability scanner in tarball mode
-      uses: aquasecurity/trivy-action@0.28.0
-      with:
-        input: /github/workspace/vuln-image.tar
-        severity: 'CRITICAL,HIGH,MEDIUM'
-        format: 'sarif'
-        output: 'trivy-results.sarif'
-        ignore-unfixed: true
-
-    - name: Upload Trivy scan results to GitHub Security tab
-      uses: github/codeql-action/upload-sarif@v3
-      with:
-        sarif_file: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
