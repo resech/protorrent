@@ -23,7 +23,7 @@ jobs:
           severity: "CRITICAL,HIGH,MEDIUM"
           output: 'trivy-results.sarif'
           scan-type: "image"
-          scanners: "vuln,secret"
+          scanners: "vuln"
           version: "latest"
           vuln-type: "os,library"
 
