@@ -5,6 +5,8 @@
 # Protorrent
 Proton VPN + qBittorrent (+ and VueTorrent UI)
 
+Based heavily and forked from the work that [bubuntux](https://github.com/bubuntux/protorrent) did. If you like this image, consider supporting [him](https://github.com/sponsors/bubuntux).
+
 # How to use this image
 First you need to obtain the wireguard configurations from https://account.protonvpn.com/downloads: 
 - Enable VPN Accelerator
