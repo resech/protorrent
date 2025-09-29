@@ -25,7 +25,7 @@ RUN \
   echo "*** install VueTorrent ***" && \
   unzip /tmp/vuetorrent.zip -d / && \
   echo "*** perform updates ***" && \
-  apk upgrade && \
+  apk -U upgrade && \
   echo "*** install packages ***" && \
   apk add patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
   echo "*** patch wg-quick ***" && \
