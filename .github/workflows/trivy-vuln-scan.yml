@@ -20,7 +20,7 @@ jobs:
           image-ref: "ghcr.io/resech/protorrent:main"
           format: 'sarif'
           ignore-unfixed: true
-          severity: "CRITICAL,HIGH,MEDIUM"
+          severity: "CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN"
           output: 'trivy-results.sarif'
           scan-type: "image"
           scanners: "vuln"
