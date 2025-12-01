@@ -3,7 +3,7 @@
 </p>
 
 # Protorrent
-Proton VPN + qBittorrent (+ and VueTorrent UI)
+Proton VPN + qBittorrent (+ VueTorrent UI)
 
 Based heavily and forked from the work that [bubuntux](https://github.com/bubuntux/protorrent) did. If you like this image, consider supporting [him](https://github.com/sponsors/bubuntux).
 

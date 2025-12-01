@@ -5,7 +5,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 1"
+    - cron: "37 23 * * 2"
 
 jobs:
   trivy_scan:
