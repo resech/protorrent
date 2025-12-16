@@ -14,6 +14,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLA
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-arch.tar.xz /tmp
 ADD https://github.com/VueTorrent/VueTorrent/releases/latest/download/vuetorrent.zip /tmp
+ADD https://github.com/userdocs/qbittorrent-nox-static/releases/latest/download/x86_64-qbittorrent-nox /tmp
 COPY root /
 
 RUN \
@@ -24,10 +25,13 @@ RUN \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
   echo "*** install VueTorrent ***" && \
   unzip /tmp/vuetorrent.zip -d / && \
+  echo "*** install qBittorrent-nox static ***" && \
+  mv /tmp/x86_64-qbittorrent-nox /usr/bin/qbittorrent-nox && \
+  chmod 700 /usr/bin/qbittorrent-nox && \
   echo "*** perform updates ***" && \
   apk -U upgrade && \
   echo "*** install packages ***" && \
-  apk add patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils qbittorrent-nox curl jq && \
+  apk add patch tzdata bash shadow wireguard-tools iptables libnatpmp libcap-utils curl jq && \
   echo "*** patch wg-quick ***" && \
   patch --verbose -d / -p 0 -i /tmp/wg-quick.patch && \
   echo "**** create abc user and make our folders ****" && \
