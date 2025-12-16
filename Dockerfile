@@ -27,7 +27,7 @@ RUN \
   unzip /tmp/vuetorrent.zip -d / && \
   echo "*** install qBittorrent-nox static ***" && \
   mv /tmp/x86_64-qbittorrent-nox /usr/bin/qbittorrent-nox && \
-  chmod 700 /usr/bin/qbittorrent-nox && \
+  chmod 755 /usr/bin/qbittorrent-nox && \
   echo "*** perform updates ***" && \
   apk -U upgrade && \
   echo "*** install packages ***" && \
