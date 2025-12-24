@@ -5,7 +5,10 @@
 # Protorrent
 Proton VPN + qBittorrent (+ VueTorrent UI)
 
-Based heavily and forked from the work that [bubuntux](https://github.com/bubuntux/protorrent) did. If you like this image, consider supporting [him](https://github.com/sponsors/bubuntux).
+Based heavily and forked from the work that [bubuntux](https://github.com/bubuntux/protorrent) did. If you like this image, consider supporting [him](https://github.com/sponsors/bubuntux). Changes from bubuntux's version include:
+- Updates to latest s6-overlay version
+- Switched to [qbittorent-nox-static](https://github.com/userdocs/qbittorrent-nox-static) builds
+- Inclusion of [VueTorrent](https://github.com/VueTorrent/VueTorrent/), an alternative WebUI for qBittorrent. To use it, tick the Alternative WebUI option and point it to `/vuetorrent`
 
 # How to use this image
 First you need to obtain the wireguard configurations from https://account.protonvpn.com/downloads: 
@@ -13,7 +16,7 @@ First you need to obtain the wireguard configurations from https://account.proto
 - Enable NAT-PMP (Port Forwarding)
 - Select a server that supports p2p.
   
-Save this configuration file as /config/wireguard/wg0.conf
+Save this configuration file as `/config/wireguard/wg0.conf`
 
 Start the container using (or equivalent)  
 
@@ -25,7 +28,19 @@ You can also add an environment variable that would open the traffic to the spec
     
     docker run -d --privileged -v <localDir>:/config -p 8080:8080 -e NET_LOCAL=192.168.0.0/24 ghcr.io/resech/protorrent:main
 
-This container also contains [VueTorrent](https://github.com/VueTorrent/VueTorrent/), an alternative WebUI for qBittorrent. To use it, tick the Alternative WebUI option and point it to `/vuetorrent`
+## DNS Configuration
+
+You may get the following error when trying to start the container:
+```
+resolvconf: signature mismatch: /etc/resolv.conf
+resolvconf: run `resolvconf -u` to update
+[#] ip link delete dev wg0
+s6-rc: warning: unable to start service svc-wireguard: command exited 1
+```
+
+To resolve this issue, just add the following line to your `wg0.conf` in the `[Interface]` section and then relaunch the container:
+
+`PreUp = resolvconf -u`
 
 # Environent ( -e )
 
