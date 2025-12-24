@@ -24,7 +24,7 @@ RUN \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
   tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
   echo "*** install VueTorrent ***" && \
-  unzip /tmp/vuetorrent.zip -d / && \
+  unzip -q /tmp/vuetorrent.zip -d / && \
   echo "*** install qBittorrent-nox static ***" && \
   mv /tmp/x86_64-qbittorrent-nox /usr/bin/qbittorrent-nox && \
   chmod 755 /usr/bin/qbittorrent-nox && \
