@@ -30,7 +30,7 @@ ENV XDG_CONFIG_HOME="/config" \
 
 COPY --from=downloader /tmp/s6-overlay-*.tar.xz /tmp/
 COPY --from=downloader /tmp/qbittorrent-nox /usr/bin/qbittorrent-nox
-COPY --from=downloader /vuetorrent /vuetorrent
+COPY --from=downloader /vuetorrent/vuetorrent /vuetorrent
 COPY root /
 
 RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
