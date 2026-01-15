@@ -37,8 +37,8 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
-    rm /tmp/s6-overlay-*.tar.xz && \
-    apk add --no-cache \
+    apk -U upgrade && \
+    apk add \
       tzdata \
       bash \
       wireguard-tools \
@@ -49,7 +49,7 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
       patch \
       jq && \
     patch --verbose -d / -p 0 -i /tmp/wg-quick.patch && \
-    apk del --no-cache patch && \
+    apk del patch && \
     addgroup -g 1000 abc && \
     adduser -D -u 1000 -G abc -h /config -s /bin/false abc && \
     mkdir -p /config /downloads && \
