@@ -2,7 +2,8 @@ FROM alpine:edge AS downloader
 
 ARG S6_OVERLAY_VERSION=3.2.1.0
 
-RUN apk add --no-cache curl unzip && \
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk -U add curl && \
     cd /tmp && \
     curl -L -o s6-overlay-noarch.tar.xz \
       "https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz" && \
@@ -33,11 +34,12 @@ COPY --from=downloader /tmp/qbittorrent-nox /usr/bin/qbittorrent-nox
 COPY --from=downloader /vuetorrent/vuetorrent /vuetorrent
 COPY root /
 
-RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
+RUN --mount=type=cache,target=/var/cache/apk \
+    tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
-    apk -U upgrade && \
+    apk upgrade && \
     apk add \
       tzdata \
       bash \
@@ -53,7 +55,7 @@ RUN tar -C / -Jxpf /tmp/s6-overlay-noarch.tar.xz && \
     addgroup -g 1000 abc && \
     adduser -D -u 1000 -G abc -h /config -s /bin/false abc && \
     mkdir -p /config /downloads && \
-    rm -rf /tmp/* /var/cache/apk/*
+    rm -rf /tmp/*
 
 EXPOSE 8080
 VOLUME /config
