@@ -48,10 +48,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
       libnatpmp \
       libcap-utils \
       curl \
-      patch \
       jq && \
-    patch --verbose -d / -p 0 -i /tmp/wg-quick.patch && \
-    apk del patch && \
     addgroup -g 1000 abc && \
     adduser -D -u 1000 -G abc -h /config -s /bin/false abc && \
     mkdir -p /config /downloads && \
