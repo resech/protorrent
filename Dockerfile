@@ -1,6 +1,6 @@
 FROM alpine:edge AS downloader
 
-ARG S6_OVERLAY_VERSION=3.2.1.0
+ARG S6_OVERLAY_VERSION=3.2.2.0
 
 RUN --mount=type=cache,target=/var/cache/apk \
     apk -U add curl && \
