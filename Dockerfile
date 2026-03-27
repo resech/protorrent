@@ -1,6 +1,6 @@
 FROM alpine:edge AS downloader
 
-ARG S6_OVERLAY_VERSION=3.2.2.0
+ARG S6_OVERLAY_VERSION=3.2.1.0
 
 RUN --mount=type=cache,target=/var/cache/apk \
     apk -U add curl && \
@@ -39,7 +39,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     tar -C / -Jxpf /tmp/s6-overlay-x86_64.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-noarch.tar.xz && \
     tar -C / -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz && \
-    apk upgrade && \
+    apk -U upgrade && \
     apk add \
       tzdata \
       bash \
